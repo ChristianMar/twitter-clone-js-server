@@ -1,1 +1,1 @@
-# simple-fake-server
+# Simple Fake Server
