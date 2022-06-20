@@ -14,6 +14,14 @@ start server:
 yarn start
 ```
 
+go to
+
+```
+http://localhost:3000/
+```
+
+to find the server
+
 ## Sample Data
 
 sample user:
