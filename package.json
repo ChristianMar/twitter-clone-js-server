@@ -1,0 +1,30 @@
+{
+  "name": "simple-fake-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "--- INSTALL ---": "install all dependency with yarn install-all-dependency",
+    "remove-root-node-modules": "rm -rf ./node_modules || true",
+    "cleanup": "yarn remove-root-node-modules && yarn",
+    "--- START ---": "",
+    "prestart": "node generateData",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianMar/simple-fake-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristianMar/simple-fake-server/issues"
+  },
+  "homepage": "https://github.com/ChristianMar/simple-fake-server#readme",
+  "dependencies": {
+    "@faker-js/faker": "^7.2.0",
+    "json-schema-faker": "^0.5.0-rcv.42",
+    "json-server": "^0.17.0",
+    "lodash": "^4.17.21"
+  }
+}
