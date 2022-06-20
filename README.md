@@ -53,6 +53,6 @@ Open paw file for documentation
 
 ## Packages
 
-- json-server
-- json-schema-faker
-- @faker-js/faker
+- [json-server](https://github.com/typicode/json-server)
+- [json-schema-faker](https://github.com/json-schema-faker/json-schema-faker)
+- [@faker-js/faker](https://fakerjs.dev/guide/)
