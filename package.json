@@ -8,7 +8,8 @@
     "remove-root-node-modules": "rm -rf ./node_modules || true",
     "cleanup": "yarn remove-root-node-modules && yarn",
     "--- START ---": "",
-    "prestart": "node generateData",
+    "create-db-folder": "mkdir db || true",
+    "prestart": "yarn create-db-folder && node generateData",
     "start": "node index.js"
   },
   "repository": {
