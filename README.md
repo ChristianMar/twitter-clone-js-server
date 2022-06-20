@@ -14,7 +14,7 @@ start server:
 yarn start
 ```
 
-the server address is
+the server address is:
 
 ```
 http://localhost:3000/
