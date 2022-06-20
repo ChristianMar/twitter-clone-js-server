@@ -50,3 +50,9 @@ sample post:
 - [POST] posts: create a new post
 
 Open paw file for documentation
+
+## Packages
+
+- json-server
+- json-schema-faker
+- @faker-js/faker
