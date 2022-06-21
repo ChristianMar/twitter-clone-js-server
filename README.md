@@ -14,6 +14,8 @@ start server:
 yarn start
 ```
 
+after you will start the server, you can see on the terminal the username and the password
+
 the server address is:
 
 ```
@@ -50,15 +52,22 @@ sample post:
 
 ## Resources
 
-- [POST] login: login method
-- [POST] all_posts: retrieve all posts with pagination
-- [POST] user_posts: retrieve all post by an user with pagination
-- [POST] posts: create a new post
+- [POST] /auth/login: login
+- [POST] /auth/refresh_token: refresh jwt token
+- [POST] /posts/all_posts: retrieve all posts with pagination
+- [POST] /posts/user_posts: retrieve all post by an user with pagination
+- [POST] /posts/get_post: retrieve a single post
+- [POST] /posts/create_post: create a new post
+- [POST] /posts/delete_post: delete a post
+- [POST] /posts/update_post: update a post
+- [POST] /users/all_users: get all users
+- [POST] /users/create_user: create a new user
 
-Open paw file for documentation
+Open paw file for documentation (remember to add the 'authorization' header in posts and users call)
 
 ## Packages
 
 - [json-server](https://github.com/typicode/json-server)
 - [json-schema-faker](https://github.com/json-schema-faker/json-schema-faker)
 - [@faker-js/faker](https://fakerjs.dev/guide/)
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken)

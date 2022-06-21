@@ -1,0 +1,23 @@
+const jwtUtilities = require("../utils/jwtUtilities");
+
+const login = (req, res, router) => {
+  const { username, password } = req.body;
+  const db = router.db;
+  let user = db.get("users").find({ username: username }).value();
+  if (!user) {
+    res
+      .status(401)
+      .json({ error: "Your password or username does not match." });
+  } else if (parseInt(user.password) !== parseInt(password)) {
+    res
+      .status(401)
+      .json({ error: "Your password or username does not match." });
+  } else {
+    let token = jwtUtilities.createToken({ username, password });
+    res.json({ ...user, token });
+  }
+};
+
+module.exports = {
+  login,
+};

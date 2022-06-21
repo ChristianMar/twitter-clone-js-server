@@ -8,8 +8,6 @@
     "remove-root-node-modules": "rm -rf ./node_modules || true",
     "cleanup": "yarn remove-root-node-modules && yarn",
     "--- START ---": "",
-    "create-db-folder": "mkdir db || true",
-    "prestart": "yarn create-db-folder && node generateData",
     "start": "node index.js"
   },
   "repository": {
@@ -26,6 +24,7 @@
     "@faker-js/faker": "^7.2.0",
     "json-schema-faker": "^0.5.0-rcv.42",
     "json-server": "^0.17.0",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21"
   }
 }
