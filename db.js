@@ -1,4 +1,3 @@
-// var faker = require("faker");
 const { faker } = require("@faker-js/faker");
 var _ = require("lodash");
 
