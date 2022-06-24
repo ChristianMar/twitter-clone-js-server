@@ -19,6 +19,7 @@ const initDb = () => {
       email: faker.internet.email(firstName, lastName),
       password: "12345",
       avatar: faker.internet.avatar(),
+      language: faker.helpers.arrayElement(["en", "it", "es"]),
     };
     if (n === 0)
       console.log(
