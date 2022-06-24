@@ -35,6 +35,7 @@ sample user:
     "email": "Reymundo76@yahoo.com",
     "password": "12345",
     "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/869.jpg"
+    "language": "en"
 },
 ```
 
