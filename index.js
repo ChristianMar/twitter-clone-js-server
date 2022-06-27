@@ -12,48 +12,77 @@ server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
 const port = 3000;
+const delay = 1000;
 
 database.initDb();
 const router = jsonServer.router(database.data);
 
+addDelay = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      return resolve();
+    }, delay);
+  });
+};
+
 server.post("/auth/login", (req, res) => {
-  auth.login(req, res, router);
+  addDelay().then(() => {
+    auth.login(req, res, router);
+  });
 });
 
 server.post("/auth/refresh_token", (req, res) => {
-  auth.login(req, res, router);
+  addDelay().then(() => {
+    auth.login(req, res, router);
+  });
 });
 
 server.post("/posts/all_posts", (req, res) => {
-  posts.getPosts(req, res, router);
+  addDelay().then(() => {
+    posts.getPosts(req, res, router);
+  });
 });
 
 server.post("/posts/user_posts", (req, res) => {
-  posts.getUserPosts(req, res, router);
+  addDelay().then(() => {
+    posts.getUserPosts(req, res, router);
+  });
 });
 
 server.post("/posts/get_post", (req, res) => {
-  posts.getPost(req, res, router);
+  addDelay().then(() => {
+    posts.getPost(req, res, router);
+  });
 });
 
 server.post("/posts/create_post", (req, res) => {
-  posts.createPost(req, res, router);
+  addDelay().then(() => {
+    posts.createPost(req, res, router);
+  });
 });
 
 server.post("/posts/delete_post", (req, res) => {
-  posts.deletePost(req, res, router);
+  addDelay().then(() => {
+    posts.deletePost(req, res, router);
+  });
 });
 
 server.post("/posts/update_post", (req, res) => {
-  posts.updatePost(req, res, router);
+  addDelay().then(() => {
+    posts.updatePost(req, res, router);
+  });
 });
 
 server.post("/users/all_users", (req, res) => {
-  users.getUsers(req, res, router);
+  addDelay().then(() => {
+    users.getUsers(req, res, router);
+  });
 });
 
 server.post("/users/create_user", (req, res) => {
-  users.createUser(req, res, router);
+  addDelay().then(() => {
+    users.createUser(req, res, router);
+  });
 });
 
 server.use(router);
