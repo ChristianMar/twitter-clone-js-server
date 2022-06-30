@@ -1,8 +1,10 @@
 const jwtUtilities = require("../utils/jwtUtilities");
+const _ = require("lodash");
 
 const database = require("../db.js");
 
 const getUsers = (req, res, router) => {
+  const { limit, page } = req.body;
   let verifyTokenResult = jwtUtilities.verifyToken(
     req.headers.authorization,
     res,
@@ -12,8 +14,21 @@ const getUsers = (req, res, router) => {
   if (verifyTokenResult === true) {
     const db = router.db;
     let users = db.get("users").value();
+    let tmpPage, tmpLimit;
+    if (page === null || page === undefined) tmpPage = 0;
+    else tmpPage = page - 1;
+    if (limit === null || limit === undefined) tmpLimit = 50;
+    else tmpLimit = limit;
+
+    users = _.orderBy(users, [(item) => item.username], ["asc"]);
+    arr = _.chunk(users, tmpLimit);
+
     res.json({
-      users: users,
+      users: !arr[tmpPage] ? [] : arr[tmpPage],
+      cursor: {
+        next: !arr[tmpPage + 1] ? false : true,
+        prev: !arr[tmpPage - 1] ? false : true,
+      },
     });
   }
 };

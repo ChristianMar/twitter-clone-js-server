@@ -23,7 +23,7 @@ const getPosts = (req, res, router) => {
     else tmpLimit = limit;
 
     posts = _.orderBy(posts, [(item) => item.createdAt], ["desc"]);
-    arr = _.chunk(posts, 100);
+    arr = _.chunk(posts, tmpLimit);
 
     res.json({
       posts: !arr[tmpPage]
