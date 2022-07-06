@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
+var options = require("../config");
+const config = options.CONFIG;
 
 const userUtilities = require("./userUtilities");
 
-const SECRET_KEY = "123456789";
-const expiresIn = "300000";
-
 const createToken = (payload) => {
-  return jwt.sign(payload, SECRET_KEY, { expiresIn });
+  let expiresIn = config.expiresIn;
+  return jwt.sign(payload, config.secretKey, { expiresIn });
 };
 
 const setError = (res, message) => {
@@ -19,7 +19,7 @@ const verifyToken = (token, res, router) => {
     setError(res, "TOKEN_ERROR");
     return false;
   } else {
-    return jwt.verify(token.split(" ")[1], SECRET_KEY, (err, decode) => {
+    return jwt.verify(token.split(" ")[1], config.secretKey, (err, decode) => {
       if (!decode) {
         if (err.name === "TokenExpiredError") {
           setError(res, "TOKEN_EXPIRED");

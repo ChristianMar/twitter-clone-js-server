@@ -2,6 +2,8 @@ const jsonServer = require("json-server");
 const _ = require("lodash");
 const server = jsonServer.create();
 const middlewares = jsonServer.defaults();
+var options = require("./config");
+const config = options.CONFIG;
 
 const database = require("./db.js");
 const auth = require("./api/auth");
@@ -11,9 +13,6 @@ const posts = require("./api/posts");
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 
-const port = 3000;
-const delay = 1000;
-
 database.initDb();
 const router = jsonServer.router(database.data);
 
@@ -21,7 +20,7 @@ addDelay = () => {
   return new Promise((resolve) => {
     setTimeout(() => {
       return resolve();
-    }, delay);
+    }, config.delay);
   });
 };
 
@@ -86,6 +85,6 @@ server.post("/users/create_user", (req, res) => {
 });
 
 server.use(router);
-server.listen(port, () => {
-  console.log(`JSON Server is running on port ${port}`);
+server.listen(config.port, () => {
+  console.log(`JSON Server is running on port ${config.port}`);
 });

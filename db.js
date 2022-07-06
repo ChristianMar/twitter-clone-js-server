@@ -1,14 +1,13 @@
 const { faker } = require("@faker-js/faker");
 var _ = require("lodash");
-
-const maxUser = 100,
-  maxPost = 500;
+var options = require("./config");
+const config = options.CONFIG;
 
 const data = { users: [], posts: [] };
 
 const initDb = () => {
   // create users
-  data.users = _.times(maxUser, (n) => {
+  data.users = _.times(config.maxUser, (n) => {
     let firstName = faker.name.firstName(),
       lastName = faker.name.lastName();
     let user = {
@@ -29,7 +28,7 @@ const initDb = () => {
   });
 
   // create posts
-  data.posts = _.times(maxPost, (n) => {
+  data.posts = _.times(config.maxPost, (n) => {
     let images = [
       null,
       faker.image.abstract(),
@@ -49,7 +48,7 @@ const initDb = () => {
     let selected = faker.datatype.number(images.length, 0);
     return {
       id: n,
-      userId: faker.datatype.number(maxUser, 0),
+      userId: faker.datatype.number(config.maxUser, 0),
       title: faker.lorem.words(),
       post: faker.lorem.paragraphs(),
       image: images[selected],

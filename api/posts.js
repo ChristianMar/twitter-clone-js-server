@@ -4,6 +4,13 @@ const _ = require("lodash");
 const database = require("../db.js");
 const userUtilities = require("../utils/userUtilities");
 
+const sortArray = (array) => {
+  let arr = array.slice().sort((a, b) => {
+    return a.createdAt > b.createdAt ? -1 : a.createdAt < b.createdAt ? 1 : 0;
+  });
+  return arr;
+};
+
 const getPosts = (req, res, router) => {
   const { limit, page } = req.body;
 
@@ -22,8 +29,8 @@ const getPosts = (req, res, router) => {
     if (limit === null || limit === undefined) tmpLimit = 100;
     else tmpLimit = limit;
 
-    posts = _.orderBy(posts, [(item) => item.createdAt], ["desc"]);
-    arr = _.chunk(posts, tmpLimit);
+    arr = sortArray(posts);
+    arr = _.chunk(arr, tmpLimit);
 
     res.json({
       posts: !arr[tmpPage]
@@ -64,8 +71,8 @@ const getUserPosts = (req, res, router) => {
     );
     if (!posts) res.json({ posts: [], cursor: { next: false, prev: false } });
     else {
-      posts = _.orderBy(posts, [(item) => item.createdAt], ["desc"]);
-      arr = _.chunk(posts, 100);
+      arr = sortArray(posts);
+      arr = _.chunk(arr, tmpLimit);
 
       res.json({
         posts: !arr[tmpPage]
@@ -100,7 +107,9 @@ const getPost = (req, res, router) => {
       (item) => parseInt(item.id) === parseInt(postId)
     )[0];
     res.json({
-      post: !post ? {} : post,
+      post: !post
+        ? {}
+        : { ...post, user: userUtilities.getUserById(post.userId, router) },
     });
   }
 };

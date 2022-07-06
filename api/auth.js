@@ -7,11 +7,17 @@ const login = (req, res, router) => {
   if (!user) {
     res
       .status(401)
-      .json({ error: "Your password or username does not match." });
+      .json({
+        status: 401,
+        message: "Your password or username does not match.",
+      });
   } else if (parseInt(user.password) !== parseInt(password)) {
     res
       .status(401)
-      .json({ error: "Your password or username does not match." });
+      .json({
+        status: 401,
+        message: "Your password or username does not match.",
+      });
   } else {
     let token = jwtUtilities.createToken({ username, password });
     res.json({ ...user, token });

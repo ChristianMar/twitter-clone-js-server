@@ -22,6 +22,24 @@ the server address is:
 http://localhost:3000/
 ```
 
+## Configuration
+
+There is a config.js file that contains all configuration
+
+```
+  DB CONFIG
+  maxUser: maximum number of users created
+  maxPost: maximum number of posts created
+
+  SERVER CONFIG
+  port: server port,
+  delay: response delay (it can be used to test the spinner),
+
+  JWT CONFIG
+  secretKey: jwt secret key,
+  expiresIn: jwt expiration,
+```
+
 ## Sample Data
 
 sample user:
