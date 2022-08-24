@@ -75,6 +75,7 @@ const getUserPosts = (req, res, router) => {
       arr = _.chunk(arr, tmpLimit);
 
       res.json({
+        user: userUtilities.getUserById(userId, router),
         posts: !arr[tmpPage]
           ? []
           : arr[tmpPage].map((item) => ({
@@ -124,7 +125,13 @@ const createPost = (req, res, router) => {
   );
 
   if (verifyTokenResult === true) {
-    database.addPost({ userId, title, post, image, createdAt });
+    database.addPost({
+      userId,
+      title,
+      post,
+      image,
+      createdAt: new Date(createdAt),
+    });
     res.json({
       success: true,
     });
@@ -158,7 +165,14 @@ const updatePost = (req, res, router) => {
   );
 
   if (verifyTokenResult === true) {
-    database.updatePost({ id: postId, userId, title, post, image, createdAt });
+    database.updatePost({
+      id: postId,
+      userId,
+      title,
+      post,
+      image,
+      createdAt: new Date(createdAt),
+    });
     res.json({
       success: true,
     });
