@@ -59,7 +59,7 @@ const initDb = () => {
 };
 
 const addPost = (post) => {
-  post.id = data.posts.length;
+  post.id = data.posts.length + 1;
   data.posts.push(post);
 };
 
