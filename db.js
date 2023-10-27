@@ -3,22 +3,21 @@ var _ = require("lodash");
 var options = require("./config");
 const config = options.CONFIG;
 
-const data = { users: [], posts: [] };
+const data = { users: [], posts: [], tags: [] };
 
 const initDb = () => {
   // create users
   data.users = _.times(config.maxUser, (n) => {
-    let firstName = faker.name.firstName(),
-      lastName = faker.name.lastName();
+    let firstName = faker.person.firstName(),
+      lastName = faker.person.lastName();
     let user = {
       id: n,
       username: `${firstName}.${lastName}`,
       firstName: firstName,
       lastName: lastName,
-      email: faker.internet.email(firstName, lastName),
+      email: faker.internet.email({ firstName: firstName, lastName: lastName }),
       password: "12345",
-      // avatar: faker.internet.avatar(),
-      avatar: faker.image.animals(),
+      avatar: faker.image.avatarGitHub(),
       language: faker.helpers.arrayElement(["en", "it", "es"]),
     };
     if (n === 0)
@@ -28,39 +27,35 @@ const initDb = () => {
     return user;
   });
 
+  data.tags = _.times(config.maxTags, (n) => {
+    return faker.word.noun();
+  });
+
   // create posts
   data.posts = _.times(config.maxPost, (n) => {
-    let images = [
-      null,
-      faker.image.abstract(),
-      faker.image.animals(),
-      faker.image.business(),
-      faker.image.cats(),
-      faker.image.city(),
-      faker.image.fashion(),
-      faker.image.food(),
-      faker.image.nature(),
-      faker.image.nightlife(),
-      faker.image.people(),
-      faker.image.sports(),
-      faker.image.technics(),
-      faker.image.transport(),
-    ];
-    let selected = faker.datatype.number(images.length, 0);
+    let tagNumber = faker.number.int({ min: 1, max: config.maxPostTags });
     return {
       id: n,
-      userId: faker.datatype.number(config.maxUser, 0),
+      userId: faker.number.int(config.maxUser - 1),
       title: faker.lorem.words(),
       post: faker.lorem.paragraphs(),
-      image: images[selected],
+      image: faker.image.urlLoremFlickr(),
       createdAt: faker.date.past(),
+      tags: [...Array(tagNumber)].map(
+        () => data.tags[faker.number.int(data.tags.length - 1)]
+      ),
+      isBig: faker.datatype.boolean(),
     };
   });
 };
 
 const addPost = (post) => {
-  post.id = data.posts.length + 1;
+  post.id = data.posts.length;
   data.posts.push(post);
+};
+
+const addTag = (tag) => {
+  data.tags.push(tag);
 };
 
 const updatePost = (post) => {
@@ -85,6 +80,7 @@ module.exports = {
   initDb,
   addUser,
   addPost,
+  addTag,
   updatePost,
   deletePost,
   data,

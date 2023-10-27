@@ -9,6 +9,7 @@ const database = require("./db.js");
 const auth = require("./api/auth");
 const users = require("./api/users");
 const posts = require("./api/posts");
+const tags = require("./api/tags");
 
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
@@ -32,13 +33,19 @@ server.post("/auth/login", (req, res) => {
 
 server.post("/auth/refresh_token", (req, res) => {
   addDelay().then(() => {
-    auth.login(req, res, router);
+    auth.refreshToken(req, res, router);
   });
 });
 
 server.post("/posts/all_posts", (req, res) => {
   addDelay().then(() => {
     posts.getPosts(req, res, router);
+  });
+});
+
+server.post("/tags/all_tags", (req, res) => {
+  addDelay().then(() => {
+    tags.getTags(req, res, router);
   });
 });
 

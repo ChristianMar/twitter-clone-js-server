@@ -1,4 +1,4 @@
-# Simple Fake Server
+# Blog JS Server
 
 ## Getting started
 
@@ -73,6 +73,7 @@ sample post:
 
 - [POST] /auth/login: login
 - [POST] /auth/refresh_token: refresh jwt token
+- [POST] /tags/all_tags: retrieve all tags
 - [POST] /posts/all_posts: retrieve all posts with pagination
 - [POST] /posts/user_posts: retrieve all post by an user with pagination
 - [POST] /posts/get_post: retrieve a single post

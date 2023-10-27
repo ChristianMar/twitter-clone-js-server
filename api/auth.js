@@ -5,25 +5,43 @@ const login = (req, res, router) => {
   const db = router.db;
   let user = db.get("users").find({ username: username }).value();
   if (!user) {
-    res
-      .status(401)
-      .json({
-        status: 401,
-        message: "Your password or username does not match.",
-      });
+    res.status(401).json({
+      status: 401,
+      message: "Your password or username does not match.",
+    });
   } else if (parseInt(user.password) !== parseInt(password)) {
-    res
-      .status(401)
-      .json({
-        status: 401,
-        message: "Your password or username does not match.",
-      });
+    res.status(401).json({
+      status: 401,
+      message: "Your password or username does not match.",
+    });
   } else {
     let token = jwtUtilities.createToken({ username, password });
     res.json({ ...user, token });
   }
 };
 
+const refreshToken = (req, res, router) => {
+  const { userId } = req.body;
+  const db = router.db;
+  let user = db
+    .get("users")
+    .find({ id: parseInt(userId) })
+    .value();
+  if (!user) {
+    res.status(401).json({
+      status: 401,
+      message: "User doesn't exist",
+    });
+  } else {
+    let token = jwtUtilities.createToken({
+      username: user.username,
+      password: user.password,
+    });
+    res.json({ ...user, token });
+  }
+};
+
 module.exports = {
   login,
+  refreshToken,
 };

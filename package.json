@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/ChristianMar/simple-fake-server#readme",
   "dependencies": {
-    "@faker-js/faker": "^7.2.0",
+    "@faker-js/faker": "^8.2.0",
     "json-schema-faker": "^0.5.0-rcv.42",
     "json-server": "^0.17.0",
     "jsonwebtoken": "^8.5.1",
