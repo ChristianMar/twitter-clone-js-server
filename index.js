@@ -49,9 +49,21 @@ server.post("/tags/all_tags", (req, res) => {
   });
 });
 
+server.post("/tags/most_used_tags", (req, res) => {
+  addDelay().then(() => {
+    tags.getMostUsedTags(req, res, router);
+  });
+});
+
 server.post("/posts/user_posts", (req, res) => {
   addDelay().then(() => {
     posts.getUserPosts(req, res, router);
+  });
+});
+
+server.post("/posts/tag_posts", (req, res) => {
+  addDelay().then(() => {
+    posts.getTagPosts(req, res, router);
   });
 });
 
@@ -82,6 +94,12 @@ server.post("/posts/update_post", (req, res) => {
 server.post("/users/all_users", (req, res) => {
   addDelay().then(() => {
     users.getUsers(req, res, router);
+  });
+});
+
+server.post("/users/most_important_users", (req, res) => {
+  addDelay().then(() => {
+    users.getMostImportantUsers(req, res, router);
   });
 });
 

@@ -26,6 +26,17 @@ const getUsers = (req, res, router) => {
   });
 };
 
+const getMostImportantUsers = (req, res, router) => {
+  const { limit, page } = req.body;
+
+  const db = router.db;
+  let users = db.get("users").value();
+
+  res.json({
+    users: users.slice(0, 7),
+  });
+};
+
 const createUser = (req, res, router) => {
   const { username, firstName, lastName, email, password, avatar } = req.body;
 
@@ -44,5 +55,6 @@ const createUser = (req, res, router) => {
 
 module.exports = {
   getUsers,
+  getMostImportantUsers,
   createUser,
 };

@@ -72,6 +72,38 @@ const getUserPosts = (req, res, router) => {
   }
 };
 
+const getTagPosts = (req, res, router) => {
+  const { limit, page, tag } = req.body;
+
+  const db = router.db;
+  let posts = db.get("posts").value();
+  let tmpPage, tmpLimit;
+  if (page === null || page === undefined) tmpPage = 0;
+  else tmpPage = page - 1;
+  if (limit === null || limit === undefined) tmpLimit = 100;
+  else tmpLimit = limit;
+
+  posts = _.filter(posts, (item) => item.tags.includes(tag));
+  if (!posts) res.json({ posts: [], cursor: { next: false, prev: false } });
+  else {
+    arr = sortArray(posts);
+    arr = _.chunk(arr, tmpLimit);
+
+    res.json({
+      posts: !arr[tmpPage]
+        ? []
+        : arr[tmpPage].map((item) => ({
+            ...item,
+            user: userUtilities.getUserById(item.userId, router),
+          })),
+      cursor: {
+        next: !arr[tmpPage + 1] ? false : true,
+        prev: !arr[tmpPage - 1] ? false : true,
+      },
+    });
+  }
+};
+
 const getPost = (req, res, router) => {
   const { postId } = req.body;
   const db = router.db;
@@ -167,6 +199,7 @@ const updatePost = (req, res, router) => {
 module.exports = {
   getPosts,
   getUserPosts,
+  getTagPosts,
   getPost,
   createPost,
   deletePost,
