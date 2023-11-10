@@ -1,4 +1,7 @@
+const { faker } = require("@faker-js/faker");
+
 const jwtUtilities = require("../utils/jwtUtilities");
+const database = require("../db.js");
 
 const login = (req, res, router) => {
   const { username, password } = req.body;
@@ -41,7 +44,27 @@ const refreshToken = (req, res, router) => {
   }
 };
 
+const signup = (req, res, router) => {
+  const { username } = req.body;
+  const db = router.db;
+  let user = db.get("users").find({ username: username }).value();
+
+  if (!user) {
+    database.addUser({
+      ...req.body,
+      avatar: faker.image.avatarGitHub(),
+      language: "en",
+    });
+  } else {
+    res.status(401).json({
+      status: 401,
+      message: "Username already exist",
+    });
+  }
+};
+
 module.exports = {
   login,
   refreshToken,
+  signup,
 };

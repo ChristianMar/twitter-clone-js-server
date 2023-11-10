@@ -1,4 +1,4 @@
-# Blog JS Server
+# Twitter clone JS Server
 
 ## Getting started
 
@@ -71,15 +71,27 @@ sample post:
 
 ## Resources
 
+### AUTH
+
 - [POST] /auth/login: login
 - [POST] /auth/refresh_token: refresh jwt token
-- [POST] /tags/all_tags: retrieve all tags
+- [POST] /auth/signup: signup
+
+### POST
+
 - [POST] /posts/all_posts: retrieve all posts with pagination
 - [POST] /posts/user_posts: retrieve all post by an user with pagination
 - [POST] /posts/get_post: retrieve a single post
 - [POST] /posts/create_post: create a new post
 - [POST] /posts/delete_post: delete a post
 - [POST] /posts/update_post: update a post
+
+### TAG
+
+- [POST] /tags/all_tags: retrieve all tags
+
+### USER
+
 - [POST] /users/all_users: get all users
 - [POST] /users/create_user: create a new user
 

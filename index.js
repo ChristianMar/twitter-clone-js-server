@@ -37,6 +37,12 @@ server.post("/auth/refresh_token", (req, res) => {
   });
 });
 
+server.post("/auth/signup", (req, res) => {
+  addDelay().then(() => {
+    auth.signup(req, res, router);
+  });
+});
+
 server.post("/posts/all_posts", (req, res) => {
   addDelay().then(() => {
     posts.getPosts(req, res, router);
